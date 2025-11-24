@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: WeixinServe
+serve:
+  port: 8080
+wechat:
+  cp:
+    corp-id: your_corp_id
+    corp-secret: your_corp_secret
+    agent-id: your_agent_id
+    token: your_token
+    aes-key: your_aes_key
