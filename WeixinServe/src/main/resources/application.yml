@@ -5,8 +5,8 @@ serve:
   port: 8080
 wechat:
   cp:
-    corp-id: your_corp_id
+    corp-id: ww2867dedcc26777d3
     corp-secret: your_corp_secret
-    agent-id: your_agent_id
-    token: your_token
-    aes-key: your_aes_key
+    agent-id: 1000011
+    token: iLaYOUCANR576cE
+    aes-key: iUdgqxK46Z8fxUhyhVWKHntoxe8S9ou37yGs9w2L49n

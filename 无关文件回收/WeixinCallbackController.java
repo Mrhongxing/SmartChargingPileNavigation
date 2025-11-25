@@ -52,7 +52,7 @@ public class WeixinCallbackController {
     /**
      * 接收企业微信消息
      */
-    /*@PostMapping
+    @PostMapping
     public String receiveMessage(
             @RequestParam("msg_signature") String msgSignature,
             @RequestParam("timestamp") String timestamp,
@@ -94,5 +94,5 @@ public class WeixinCallbackController {
         
         // 暂时返回success，表示消息处理成功
         return "success";
-    }*/
+    }
 }
