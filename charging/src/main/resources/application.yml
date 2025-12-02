@@ -1,5 +1,27 @@
 spring:
+  datasource:
+    url: jdbc:mysql://81.70.228.227:3306/database_springboot_v2?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1234567890wcvff
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      connection-timeout: 20000
+      max-lifetime: 1800000
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update #开发环境使用update，生产环境请使用validate或none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 保持实体类和数据库表名一致
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        hbm2ddl.charset.name: utf8mb4
   application:
     name: charging
-serve:
+server:
   port: 8080
