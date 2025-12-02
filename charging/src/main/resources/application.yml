@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: charging
+serve:
+  port: 8080

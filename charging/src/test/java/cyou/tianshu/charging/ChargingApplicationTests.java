@@ -1,10 +1,10 @@
-package cyou.tianshu.WeixinServe;
+package cyou.tianshu.charging;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WeixinServeApplicationTests {
+class ChargingApplicationTests {
 
 	@Test
 	void contextLoads() {

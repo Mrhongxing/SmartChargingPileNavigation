@@ -1,13 +1,13 @@
-package cyou.tianshu.WeixinServe;
+package cyou.tianshu.charging;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WeixinServeApplication {
+public class ChargingApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WeixinServeApplication.class, args);
+		SpringApplication.run(ChargingApplication.class, args);
 	}
 
 }
