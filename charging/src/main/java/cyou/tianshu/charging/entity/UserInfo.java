@@ -16,6 +16,8 @@ public class UserInfo {
     private String email;// 用户邮箱
     @Column(name = "password_hash", nullable = false)
     private String password;// 用户密码
+    @Column(name = "pet_name", nullable = true)
+    private String petName; //用户昵称
     @Column(name = "phone", nullable = true)
     private String phone;// 用户电话
     @Column(name = "user_img", nullable = true)
@@ -40,5 +42,44 @@ public class UserInfo {
     }
     public void setUser_id(Integer user_id) {
         this.user_id = user_id;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getPetName() {
+        return petName;
+    }
+    public void setPetName(String petName) {
+        this.petName = petName;
+    }
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    public String getUserImg() {
+        return userImg;
+    }
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
+    }
+    public String getCarVin() {
+        return carVin;
+    }
+    public void setCarVin(String carVin) {
+        this.carVin = carVin;
+    }
+    public String getCarType() {
+        return carType;
+    }
+    public void setCarType(String carType) {
+        this.carType = carType;
     }
 }
