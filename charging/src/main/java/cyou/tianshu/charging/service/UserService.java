@@ -47,7 +47,7 @@ public class UserService {
     public RegisterResponse registerUser(String username, String password) {
         if(username.contains("@")){
             // Register by email
-            if (false){//userRepositoyByEmail.existsByEmail(username)) {
+            if (userRepositoyByEmail.existsByEmail(username)) {
                 return new RegisterResponse(false, "Email already registered");
             }
             password = passwordUtil.encodePassword(password);
