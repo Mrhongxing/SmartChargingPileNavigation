@@ -23,5 +23,10 @@ spring:
         hbm2ddl.charset.name: utf8mb4
   application:
     name: charging
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
 server:
   port: 8080

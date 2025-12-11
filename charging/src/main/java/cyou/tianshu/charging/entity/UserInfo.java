@@ -26,13 +26,37 @@ public class UserInfo {
     private String carVin;// 车辆识别码
     @Column(name = "car_type", nullable = true)
     private String carType;// 车辆类型
+    @Column(name = "user_role", nullable = false)
+    private Integer userRole;// 用户角色
     public UserInfo() {
+        this.email = "";
+        this.password = "";
+        this.phone = "";
+        this.userImg = "";
+        this.carVin = "";
+        this.carType = "";
+        this.petName = "";
+        this.userRole = 0;
     }
-    public UserInfo(String email, String password, String phone, String userImg) {
+    public UserInfo(String email, String password) {
         this.email = email;
         this.password = password;
+        this.phone = "";
+        this.userImg = "";
+        this.carVin = "";
+        this.carType = "";
+        this.petName = "";
+        this.userRole = 1;
+    }
+    public UserInfo(String phone, String password,String model) {
         this.phone = phone;
-        this.userImg = userImg;
+        this.password = password;
+        this.email = "";
+        this.userImg = "";
+        this.carVin = "";
+        this.carType = "";
+        this.petName = "";
+        this.userRole = 1;
     }
     public String getEmail() {
         return email;
@@ -81,5 +105,11 @@ public class UserInfo {
     }
     public void setCarType(String carType) {
         this.carType = carType;
+    }
+    public Integer getUserRole() {
+        return userRole;
+    }
+    public void setUserRole(Integer userRole) {
+        this.userRole = userRole;
     }
 }
