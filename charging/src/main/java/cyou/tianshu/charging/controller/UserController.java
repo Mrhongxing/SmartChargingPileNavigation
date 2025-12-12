@@ -27,8 +27,17 @@ public class UserController {
         }
         if (response.getToken() != null && !response.getToken().isEmpty()) {
             return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(401).body(response);
+        } else {//再次尝试登录
+            if(loginRequest.getUsername().contains("@")){
+                response = userService.loginByEmail(loginRequest.getUsername(), loginRequest.getPassword());
+            }else{
+                response = userService.loginByPhone(loginRequest.getUsername(), loginRequest.getPassword());
+            }
+            if (response.getToken() != null && !response.getToken().isEmpty()) {
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.status(401).body(new LoginResponse());
+            }
         }
     }
 
