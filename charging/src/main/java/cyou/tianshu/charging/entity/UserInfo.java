@@ -1,32 +1,17 @@
 package cyou.tianshu.charging.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import lombok.Data;
 
-@Entity
-@Table(name = "user_info")
+@Data
 public class UserInfo {
-    @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Integer user_id;// 用户ID
-    @Column(name = "email", nullable = false, unique = true)
     private String email;// 用户邮箱
-    @Column(name = "password_hash", nullable = false)
     private String password;// 用户密码
-    @Column(name = "pet_name", nullable = true)
     private String petName; //用户昵称
-    @Column(name = "phone", nullable = true)
     private String phone;// 用户电话
-    @Column(name = "user_img", nullable = true)
     private String userImg;// 用户头像
-    @Column(name = "car_vin", nullable = true)
     private String carVin;// 车辆识别码
-    @Column(name = "car_type", nullable = true)
     private String carType;// 车辆类型
-    @Column(name = "user_role", nullable = false)
     private Integer userRole;// 用户角色
     public UserInfo() {
         this.email = "";

@@ -5,21 +5,19 @@ import org.springframework.stereotype.Service;
 
 import cyou.tianshu.charging.dto.LoginResponse;
 import cyou.tianshu.charging.entity.UserInfo;
-import cyou.tianshu.charging.respository.UserRepositoy;
+import cyou.tianshu.charging.mapper.UserMapper;
 import cyou.tianshu.charging.util.PasswordUtil;
 import cyou.tianshu.charging.dto.RegisterResponse;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserRepositoy userRepositoyByEmail;
-    @Autowired
-    private UserRepositoy userRepositoyByID;
+    @Autowired(required = false)
+    private UserMapper userMapper;
     @Autowired
     private PasswordUtil passwordUtil;
 
     public LoginResponse loginByEmail(String username, String password) {
-        UserInfo userInfo =  userRepositoyByEmail.findByEmail(username);
+        UserInfo userInfo =  userMapper.selectByEmail(username);
         if (userInfo == null) {
             return new LoginResponse();
         }
@@ -32,7 +30,7 @@ public class UserService {
         }
     }
     public LoginResponse loginByPhone(String username, String password) {
-        UserInfo userInfo =  userRepositoyByID.findByPhone(username);
+        UserInfo userInfo =  userMapper.selectByPhone(username);
         if (userInfo == null) {
             return new LoginResponse();
         }
@@ -47,21 +45,21 @@ public class UserService {
     public RegisterResponse registerUser(String username, String password) {
         if(username.contains("@")){
             // Register by email
-            if (userRepositoyByEmail.existsByEmail(username)) {
+            if (userMapper.existsByEmail(username)) {
                 return new RegisterResponse(false, "Email already registered");
             }
             password = passwordUtil.encodePassword(password);
             UserInfo newUser = new UserInfo(username, password);
-            userRepositoyByEmail.save(newUser);
+            userMapper.insert(newUser);
             return new RegisterResponse(true, "User registered successfully");
         }else{
             // Register by phone
-            if (userRepositoyByID.existsByPhone(username)) {
+            if (userMapper.existsByPhone(username)) {
                 return new RegisterResponse(false, "Phone number already registered");
             }
             password = passwordUtil.encodePassword(password);
             UserInfo newUser = new UserInfo(username, password,"");
-            userRepositoyByID.save(newUser);
+            userMapper.insert(newUser);
             return new RegisterResponse(true, "User registered successfully");
         }
     }

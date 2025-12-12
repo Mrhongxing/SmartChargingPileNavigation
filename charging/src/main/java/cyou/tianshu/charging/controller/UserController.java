@@ -42,7 +42,7 @@ public class UserController {
             }else{
                 return ResponseEntity.ok(response);
             }
-        }catch(org.springframework.data.core.PropertyReferenceException  e){
+        }catch(Exception  e){
             return ResponseEntity.status(500).body(new RegisterResponse(false, e.toString()));
         }
         
