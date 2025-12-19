@@ -46,10 +46,10 @@ public class UserInfo {
     public String getEmail() {
         return email;
     }
-    public Integer getUser_id() {
+    public Integer getUserId() {
         return user_id;
     }
-    public void setUser_id(Integer user_id) {
+    public void setUserId(Integer user_id) {
         this.user_id = user_id;
     }
     public void setEmail(String email) {

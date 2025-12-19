@@ -36,7 +36,7 @@ public class UserController {
             if (response.getToken() != null && !response.getToken().isEmpty()) {
                 return ResponseEntity.ok(response);
             } else {
-                return ResponseEntity.status(401).body(new LoginResponse());
+                return ResponseEntity.ok(response);
             }
         }
     }
