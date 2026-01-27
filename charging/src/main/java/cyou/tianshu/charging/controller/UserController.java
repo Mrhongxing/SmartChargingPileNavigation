@@ -7,8 +7,10 @@ import cyou.tianshu.charging.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,5 +57,14 @@ public class UserController {
             return ResponseEntity.status(500).body(new RegisterResponse(false, e.toString()));
         }
         
+    }
+    @GetMapping("/userInfo")
+    public ResponseEntity<LoginResponse> getUserInfo(@RequestHeader("Authorization") String authorization,@RequestBody Integer userId) {
+        LoginResponse response = userService.getUserInfo(userId);
+        if (response.getToken() != null && !response.getToken().isEmpty()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(404).body(response);
+        }
     }
 }
