@@ -2,6 +2,7 @@ package cyou.tianshu.charging.controller;
 
 import cyou.tianshu.charging.dto.LoginResponse;
 import cyou.tianshu.charging.dto.RegisterResponse;
+import cyou.tianshu.charging.entity.UserInfo;
 import cyou.tianshu.charging.dto.LoginRequest;
 import cyou.tianshu.charging.service.UserService;
 
@@ -42,7 +43,7 @@ public class UserController {
             }else{
                 return ResponseEntity.ok(response);
             }
-        }catch(org.springframework.data.core.PropertyReferenceException  e){
+        }catch(Exception e){
             return ResponseEntity.status(500).body(new RegisterResponse(false, e.toString()));
         }
         
