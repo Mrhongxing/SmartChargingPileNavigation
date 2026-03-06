@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor  // 添加无参构造函数
 @AllArgsConstructor // 添加全参构造函数
-@TableName("user_info")
+@TableName("smart_charging_user")
 public class UserInfo {
     @TableId(type=IdType.AUTO)
-    private Long user_id;// 用户ID
+    private Long id;// 用户ID
     @TableField("name")
     private String name;// 用户名
     @TableField("email")

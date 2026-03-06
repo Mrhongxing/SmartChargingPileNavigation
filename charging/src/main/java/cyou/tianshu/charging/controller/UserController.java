@@ -2,6 +2,7 @@ package cyou.tianshu.charging.controller;
 
 import cyou.tianshu.charging.dto.LoginResponse;
 import cyou.tianshu.charging.dto.RegisterResponse;
+import cyou.tianshu.charging.dto.UpdateRequest;
 import cyou.tianshu.charging.entity.UserInfo;
 import cyou.tianshu.charging.dto.LoginRequest;
 import cyou.tianshu.charging.service.UserService;
@@ -26,10 +27,10 @@ public class UserController {
         }else{
             response = userService.loginByPhone(loginRequest.getUsername(), loginRequest.getPassword());
         }
-        if (response.getToken() != null && !response.getToken().isEmpty()) {
+        if (response.getToken() == null || response.getToken().isEmpty() || response.getId() == null || response.getId() == 0L) {
             return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(401).body(response);
+            return ResponseEntity.ok(response);
         }
     }
 
@@ -47,5 +48,19 @@ public class UserController {
             return ResponseEntity.status(500).body(new RegisterResponse(false, e.toString()));
         }
         
+    }
+    @PostMapping("/updateUserInfo")
+    public ResponseEntity<Boolean> updateUserInfo(@RequestBody UpdateRequest updateRequest) {
+        // Update user info logic here
+        try{
+            Boolean success = userService.updateUserInfo(updateRequest);
+            if (success) {
+                return ResponseEntity.ok(success);
+            } else {
+                return ResponseEntity.status(500).body(false);
+            }
+        }catch(Exception e){
+            return ResponseEntity.status(500).body(false);
+        }
     }
 }
