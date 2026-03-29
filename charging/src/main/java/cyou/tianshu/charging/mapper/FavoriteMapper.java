@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cyou.tianshu.charging.entity.FavoriteList;
 import cyou.tianshu.charging.entity.UserInfo;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -17,14 +18,8 @@ public interface FavoriteMapper extends BaseMapper<FavoriteList> {
      */
     @Select("SELECT * FROM favorite_list WHERE user_id = #{userId} ORDER BY created_at DESC")
     List<FavoriteList> findByUserId(@Param("userId") Long userId);
-    @Select("SELECT * FROM smart_charging_user WHERE email = #{email} ORDER BY created_at DESC")
-    UserInfo findByEmail(@Param("email") String email);
-    @Select("SELECT * FROM smart_charging_user WHERE phone = #{phone} ORDER BY created_at DESC")
-    UserInfo findByPhone(@Param("phone") String phone);
-    @Select("SELECT COUNT(*) FROM smart_charging_user WHERE email = #{email}")
-    boolean existsByEmail(@Param("email") String email);
-    @Select("SELECT COUNT(*) FROM smart_charging_user WHERE phone = #{phone}")
-    boolean existsByPhone(@Param("phone") String phone);
-    @Insert("INSERT INTO smart_charging_user (email, password, phone) VALUES (#{email}, #{password}, #{phone})")
-    void save(UserInfo userInfo);
+    @Delete("DELETE FROM favorite_list WHERE id = #{id}")
+    void deleteById(@Param("id") Long id);
+    @Insert("INSERT INTO favorite_list (user_id, Latitude, Longitude, address) VALUES (#{userId}, #{latitude}, #{longitude}, #{address})")
+    void save(FavoriteList favorite);
 }

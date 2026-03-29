@@ -30,4 +30,4 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: false
 server:
-  port: 8080
+  port: 8081

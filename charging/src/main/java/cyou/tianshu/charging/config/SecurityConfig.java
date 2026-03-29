@@ -55,10 +55,11 @@ public class SecurityConfig {
         
         // 允许的来源（前端地址）
         configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:3000",  // React开发服务器
+            "http://localhost:3001",  // React开发服务器
             "http://localhost:8080",  // Vue开发服务器或后端地址
             "http://localhost:5173",  // Vite开发服务器
-            "http://localhost:8081"   // 其他可能的端口
+            "http://localhost:3000"   // 其他可能的端口
+
         ));
         
         // 允许的HTTP方法

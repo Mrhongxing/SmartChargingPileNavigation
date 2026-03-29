@@ -16,4 +16,18 @@ public class FavoriteService {
         List<FavoriteList> a=FavoriteMapper.findByUserId(userId);
         return a;
     }
+    public boolean addFavorite(cyou.tianshu.charging.dto.FavoriteRequest request) {
+        FavoriteList favorite = new FavoriteList();
+        favorite.setUserId(request.getUserId());
+        favorite.setLatitude(request.getLatitude());
+        favorite.setLongitude(request.getLongitude());
+        favorite.setAddress(request.getAddress());
+        FavoriteMapper.save(favorite);
+        return true;
+    }
+    public boolean deleteFavorite(Long id) {
+        FavoriteMapper.deleteById(id);
+        return true;
+    }
 }
+
