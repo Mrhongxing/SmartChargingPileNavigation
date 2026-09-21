@@ -70,7 +70,6 @@ public class SecurityConfig {
         
         // 允许的来源（前端地址）
         configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:3001",  // React开发服务器
             "http://localhost:5173",  // Vite开发服务器
             "http://localhost:3000",   // 其他可能的端口
             "https://charging.tianshu.cyou" ,    // 生产环境可能的地址
