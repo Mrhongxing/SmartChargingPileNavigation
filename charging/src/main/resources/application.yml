@@ -1,22 +1,24 @@
 spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   datasource:
-    url: jdbc:mysql://81.70.228.227:3306/smart_charging_table?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://81.70.228.227:3306/smart_charging_table?&characterEncoding=UTF-8&connectionTimeZone=Asia/Shanghai
     username: root
     password: 1234567890wcvff
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
-      idle-timeout: 30000
-      connection-timeout: 20000
+      idle-timeout: 600000
+      connection-timeout: 30000
       max-lifetime: 1800000
   application:
     name: charging
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
-      - org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
+  redis:
+    host: 2409:8a15:7a47:3d00:43a8:ab66:d726:b52f
+    port: 6379
+    database: 0       # 默认连接第0个库
+    timeout: 2000ms   # 连接超时时间
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cyou.tianshu.charging.entity
@@ -27,7 +29,23 @@ mybatis-plus:
       logic-not-delete-value: 0
       table-prefix: smart_charging_
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl #org.apache.ibatis.logging.stdout.StdOutImpl
+    logging.level.cyou.tianshu.charging.mapper: debug
     cache-enabled: false
+logging:
+  level:
+    cyou.tianshu.charging.mapper: debug
+jwt:
+  secret: wddadsadwsadawdsfdsfdfjfndfdwdasdwdadwdsdwd
+  expiration-minutes: 120
 server:
   port: 8081
+  shutdown: graceful          # 优雅停机，避免请求被硬断
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 10
+    accept-count: 500
+    max-connections: 8192
+
+  

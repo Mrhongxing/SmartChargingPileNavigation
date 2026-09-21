@@ -6,6 +6,7 @@ import cyou.tianshu.charging.dto.UpdateRequest;
 import cyou.tianshu.charging.entity.UserInfo;
 import cyou.tianshu.charging.dto.LoginRequest;
 import cyou.tianshu.charging.service.UserService;
+import cyou.tianshu.charging.config.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private JwtUtil jwtUtil;
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         LoginResponse response;
@@ -27,6 +30,7 @@ public class UserController {
         }else{
             response = userService.loginByPhone(loginRequest.getUsername(), loginRequest.getPassword());
         }
+        response.setToken(jwtUtil.generate(new UserInfo(response.getId(), response.getPhone(), response.getRole()))); 
         if (response.getToken() == null || response.getToken().isEmpty() || response.getId() == null || response.getId() == 0L) {
             return ResponseEntity.ok(response);
         } else {

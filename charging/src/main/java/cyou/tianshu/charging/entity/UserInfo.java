@@ -41,4 +41,9 @@ public class UserInfo {
         this.password = password;
         this.phone = phone;
     }
+    public UserInfo(Long id, String phone, String role) {
+        this.id = id;
+        this.phone = phone;
+        this.role = role;
+    }
 }

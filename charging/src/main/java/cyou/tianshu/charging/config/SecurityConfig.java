@@ -5,17 +5,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
-    
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     /**
      * 最简单的安全配置：只解决跨域，完全开放访问
      * 因为JWT验证你在Controller中自己做了
@@ -30,18 +34,36 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             
             // 3. 禁用所有Spring Security的安全功能
-            .authorizeHttpRequests(authz -> authz
-                .anyRequest().permitAll()  // 允许所有请求，不做认证拦截
-            )
+            //.authorizeHttpRequests(authz -> authz
+                //.anyRequest().permitAll()  // 允许所有请求，不做认证拦截
+            //)
             
             // 4. 禁用HTTP Basic认证（重要！）
             .httpBasic(AbstractHttpConfigurer::disable)
             
             // 5. 禁用表单登录
             .formLogin(AbstractHttpConfigurer::disable)
+            // 6. 禁用Session管理，改为无状态（重要！）
+            .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+            // ← 新增：把 JWT 过滤器插到用户名密码过滤器之前
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+
+            // ← 授权规则：两种模式二选一，见下文
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers("/apiForChargingStation/user/login", "/apiForChargingStation/user/register", "/error").permitAll()
+                .anyRequest().authenticated()
+            )
+
+            // ← 新增：统一 401，避免默认返回 HTML
+            .exceptionHandling(ex -> ex.authenticationEntryPoint((req, res, e) -> {
+                res.setStatus(401);
+                res.setContentType("application/json;charset=UTF-8");
+                res.getWriter().write("{\"code\":401,\"msg\":\"未登录或登录已过期\"}");
+            }));
             
             // 6. 禁用匿名用户
-            .anonymous(AbstractHttpConfigurer::disable);
+            //.anonymous(AbstractHttpConfigurer::disable);
         
         return http.build();
     }
