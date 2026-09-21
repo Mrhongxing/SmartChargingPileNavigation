@@ -15,32 +15,25 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 
-@Configuration
-@EnableWebSecurity
-@RequiredArgsConstructor
+@Configuration //声明这是一个配置类
+@EnableWebSecurity //启用Spring Security的Web安全支持
+@RequiredArgsConstructor //自动生成构造函数，注入依赖
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    /**
-     * 最简单的安全配置：只解决跨域，完全开放访问
-     * 因为JWT验证你在Controller中自己做了
-     */
-    @Bean
+    @Bean //声明一个名为filterChain的Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             // 1. 禁用CSRF（REST API不需要）
             .csrf(AbstractHttpConfigurer::disable)
-            
             // 2. 启用跨域配置
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            
             // 3. 禁用所有Spring Security的安全功能
             //.authorizeHttpRequests(authz -> authz
                 //.anyRequest().permitAll()  // 允许所有请求，不做认证拦截
             //)
-            
             // 4. 禁用HTTP Basic认证（重要！）
             .httpBasic(AbstractHttpConfigurer::disable)
-            
+
             // 5. 禁用表单登录
             .formLogin(AbstractHttpConfigurer::disable)
             // 6. 禁用Session管理，改为无状态（重要！）

@@ -22,8 +22,8 @@ import java.util.List;
  *  - 从不抛异常、从不返回 401
  * 因此对现有 Controller 逻辑零影响。
  */
-@Component
-@RequiredArgsConstructor
+@Component //声明这是一个组件类，Spring 会自动扫描并注册为 Bean
+@RequiredArgsConstructor //自动生成构造函数，注入依赖
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     public static final String HEADER = "Authorization";
