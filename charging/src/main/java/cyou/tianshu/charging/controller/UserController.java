@@ -6,7 +6,7 @@ import cyou.tianshu.charging.dto.UpdateRequest;
 import cyou.tianshu.charging.entity.UserInfo;
 import cyou.tianshu.charging.dto.LoginRequest;
 import cyou.tianshu.charging.service.UserService;
-import cyou.tianshu.charging.config.JwtUtil;
+import cyou.tianshu.charging.util.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

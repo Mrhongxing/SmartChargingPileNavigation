@@ -14,11 +14,12 @@ spring:
       max-lifetime: 1800000
   application:
     name: charging
-  redis:
-    host: 2409:8a15:7a47:3d00:43a8:ab66:d726:b52f
-    port: 6379
-    database: 0       # 默认连接第0个库
-    timeout: 2000ms   # 连接超时时间
+  data:
+    redis:
+      host: 192.168.1.21 #2409:8a15:7a47:3d00:43a8:ab66:d726:b52f
+      port: 6379
+      database: 0       # 默认连接第0个库
+      timeout: 2000ms   # 连接超时时间
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cyou.tianshu.charging.entity

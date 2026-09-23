@@ -19,10 +19,12 @@ import cyou.tianshu.charging.dto.UpdateRequest;
 public class UserService {
     @Autowired
     private PasswordUtil passwordUtil;
+    @Autowired 
+    private UserInfoService userInfoService;
     @Resource
     private UserInfoMapper userRepositoyByEmail;
     public LoginResponse loginByEmail(String username, String password) {
-        UserInfo userInfo =  userRepositoyByEmail.findByEmail(username);
+        UserInfo userInfo =  userInfoService.findByEmail(username);
 
         if (userInfo == null) {
             return new LoginResponse(null, "", "", "", "", "", "", "");
@@ -36,7 +38,7 @@ public class UserService {
         }
     }
     public LoginResponse loginByPhone(String username, String password) {
-        UserInfo userInfo =  userRepositoyByEmail.findByPhone(username);
+        UserInfo userInfo =  userInfoService.findByPhone(username);
         if (userInfo == null) {
             return new LoginResponse(0L, "", "", "", "", "", "", "");
         }
@@ -81,8 +83,8 @@ public class UserService {
             userInfo.setPhone(updateRequest.getPhone());
 
             UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
-updateWrapper.eq("id", userInfo.getId());
-userRepositoyByEmail.update(userInfo, updateWrapper);
+            updateWrapper.eq("id", userInfo.getId());
+            userRepositoyByEmail.update(userInfo, updateWrapper);
             return true;
         }catch(Exception e){
             return false;

@@ -1,5 +1,6 @@
-package cyou.tianshu.charging.config;
+package cyou.tianshu.charging.util;
 
+import cyou.tianshu.charging.entity.LoginUser;
 import cyou.tianshu.charging.entity.UserInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
