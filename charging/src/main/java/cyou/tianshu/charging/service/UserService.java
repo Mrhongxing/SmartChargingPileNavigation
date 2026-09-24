@@ -31,23 +31,21 @@ public class UserService {
         }
         boolean passwordMatches = passwordUtil.matches(password, userInfo.getPassword());
         if (passwordMatches) {
-            String token = "123"; // Generate or retrieve the token as needed
-            return new LoginResponse(userInfo.getId(), token, userInfo.getName(), userInfo.getEmail(),userInfo.getPhone(), userInfo.getCarType(), userInfo.getCarBrand(),userInfo.getRole());
+            return new LoginResponse(userInfo.getId(), "", userInfo.getName(), userInfo.getEmail(),userInfo.getPhone(), userInfo.getCarType(), userInfo.getCarBrand(),userInfo.getRole());
         } else {
-            return new LoginResponse(null, "", "", "", "", "", "", "");
+            return new LoginResponse(-1L, "", "", "", "", "", "", "");
         }
     }
     public LoginResponse loginByPhone(String username, String password) {
         UserInfo userInfo =  userInfoService.findByPhone(username);
         if (userInfo == null) {
-            return new LoginResponse(0L, "", "", "", "", "", "", "");
+            return new LoginResponse(null, "", "", "", "", "", "", "");
         }
         boolean passwordMatches = passwordUtil.matches(password, userInfo.getPassword());
         if (passwordMatches) {
-            String token = "123"; // Generate or retrieve the token as needed
-            return new LoginResponse(userInfo.getId(), token, userInfo.getName(), userInfo.getEmail(),userInfo.getPhone(), userInfo.getCarType(), userInfo.getCarBrand(),userInfo.getRole());
+            return new LoginResponse(userInfo.getId(), "", userInfo.getName(), userInfo.getEmail(),userInfo.getPhone(), userInfo.getCarType(), userInfo.getCarBrand(),userInfo.getRole());
         } else {
-            return new LoginResponse(0L, "", "", "", "", "", "", "");   
+            return new LoginResponse(-1L, "", "", "", "", "", "", "");   
         }
     }
     public RegisterResponse registerUser(String username, String password) {

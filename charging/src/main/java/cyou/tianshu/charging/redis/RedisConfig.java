@@ -17,14 +17,11 @@ public class RedisConfig implements CachingConfigurer {
     public RedisCacheManager redisCacheManager(
             org.springframework.data.redis.connection.RedisConnectionFactory factory) {
 
-        GenericJackson2JsonRedisSerializer serializer =
-                new GenericJackson2JsonRedisSerializer();
+        GenericJackson2JsonRedisSerializer serializer =new GenericJackson2JsonRedisSerializer();
 
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofMinutes(30))
-                .serializeValuesWith(
-                        RedisSerializationContext.SerializationPair
-                                .fromSerializer(serializer));
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer));
 
         return RedisCacheManager.builder(factory)
                 .cacheDefaults(config)
