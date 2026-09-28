@@ -2,9 +2,10 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 30s
   datasource:
-    url: jdbc:mysql://81.70.228.227:3306/smart_charging_table?&characterEncoding=UTF-8&connectionTimeZone=Asia/Shanghai
+    #url: jdbc:mysql://81.70.228.227:3306/smart_charging_table?&characterEncoding=UTF-8&connectionTimeZone=Asia/Shanghai
+    url: jdbc:mysql://192.168.1.21:3306/smart_charging_table?&characterEncoding=UTF-8&connectionTimeZone=Asia/Shanghai
     username: root
-    password: 1234567890wcvff
+    password: 12345Wcvff
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10

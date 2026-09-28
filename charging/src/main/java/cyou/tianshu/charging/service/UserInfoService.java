@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -53,13 +54,13 @@ public class UserInfoService extends ServiceImpl<UserInfoMapper, UserInfo> {
     /**
      * 更新数据库后删除缓存
      */
-    @CacheEvict(
-            value = "userInfo",
-            key = "'id:' + #user.id"
-    )
-    @Override
-    public boolean updateById(UserInfo user) {
-        return super.updateById(user);
+    @Caching(evict = {
+            @CacheEvict(value = "userInfo", key = "'id:' + #user.id"),
+            @CacheEvict(value = "userInfo", key = "'email:' + #user.email"),
+            @CacheEvict(value = "userInfo", key = "'phone:' + #oldPhone")
+    })
+    public boolean updateById(UserInfo user, String oldPhone) {
+        return super.updateById(user); 
     }
 
     /**

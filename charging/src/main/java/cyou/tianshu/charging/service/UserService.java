@@ -76,14 +76,16 @@ public class UserService {
                 return false;
             }
             UserInfo userInfo = userInfoList.get(0);
+            String OldPhone=userInfo.getPhone();
             userInfo.setName(updateRequest.getName());
             userInfo.setEmail(updateRequest.getEmail());
             userInfo.setPhone(updateRequest.getPhone());
 
-            UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
+            /* UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
             updateWrapper.eq("id", userInfo.getId());
-            userRepositoyByEmail.update(userInfo, updateWrapper);
-            return true;
+            userRepositoyByEmail.update(userInfo, updateWrapper); */
+            
+            return userInfoService.updateById(userInfo,OldPhone);
         }catch(Exception e){
             return false;
         }
